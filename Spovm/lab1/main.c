@@ -36,24 +36,16 @@ int main(int argc, char const *argv[])
 }
 
 void child() {
-    initscr();
-    start_color();
-    init_pair(1, COLOR_BLACK, COLOR_RED);
-    init_pair(2, COLOR_BLACK, COLOR_GREEN);
 
     int array_length = file_reading();
     array_filling(array_length);
-    attron(COLOR_PAIR(1));
-    printw("    array from file:\n    ");
+    printf("    array from file:\n    ");
     array_output();
     array_sort();
-    attron(COLOR_PAIR(2));
-    printw("    array after sorting:\n    ");
+    printf("    array after sorting:\n    ");
     array_output();
-    refresh();
 
     getchar();
-    endwin();
 }
 
 int file_reading() {
@@ -113,7 +105,7 @@ int power(int t, int k)
 void array_output() {
     int i;
     for(i = 0; i < prop_numb; i++) {
-        printw("%d ", array[i]);
+        printf("%d ", array[i]);
     }
-    printw("\n");
+    printf("\n");
 }
