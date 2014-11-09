@@ -40,7 +40,7 @@ int main()
     puts("------------------------------");
     puts("System sound");
     sound(freq);
-    delay(1000);
+    delay(2000);
     nosound();
 
     puts("Work with loudspeaker:");
@@ -70,10 +70,11 @@ int main()
     from_char_to_bin(temp, str);
     printf("System word of channel number 2: %s\n", str);
 
-    delay(2000);
+    delay(4000);
     port61word = port61word & 0xFFFC;
     outp(PORT61, port61word); /* turn off loudspeaker */
 
+    puts("------------------------------");
     system("pause");
     return 0;
-}
+}
