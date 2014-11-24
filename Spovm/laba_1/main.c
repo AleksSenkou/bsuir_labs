@@ -10,11 +10,11 @@ int array[MAX_STR];
 int prop_numb = 0;
 
 void child();
-int file_reading();
-void array_filling(int );
 void array_sort();
-int power(int ,int );
+int file_reading();
 void array_output();
+int power(int ,int );
+void array_filling(int );
 
 int main(int argc, char const *argv[])
 {       
@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
     switch(pid) {
         case -1:
             printf("Error");
-            return 88;
+            return 1488;
         case 0: 
             printf("Child process: \n");
             child();
@@ -65,14 +65,12 @@ void array_filling(int array_length){
                 array[prop_numb] = 0;
                 for(j = i; input_buffer[j + 1] != ' ' && input_buffer[j + 1] != '\0'; j++) {a = j + 1;}
                 for(j = i; a >= j; j++) {
-                    array[prop_numb] += (input_buffer[j] - '0')*power(10,(a - j));
+                    array[prop_numb] += (input_buffer[j] - '0') * power(10,(a - j));
                 }
                 prop_numb++;
                 i = a + 1;
             }
-            else {
-                array[prop_numb++] = input_buffer[i] - '0';
-            }
+            else array[prop_numb++] = input_buffer[i] - '0';
         }
     }
 }
@@ -94,8 +92,7 @@ int power(int t, int k)
 {
     int res = 1;
     while (k) {
-        if (k & 1) 
-            res *= t;
+        if (k & 1) res *= t;
         t *= t;
         k >>= 1;
     }
