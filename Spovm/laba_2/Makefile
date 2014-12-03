@@ -1,4 +1,4 @@
-# OBJ = lab2spo.o 
+# OBJ = lab2.o 
 # CFLAGS = -Wall -std=c99
 
 # all: main
