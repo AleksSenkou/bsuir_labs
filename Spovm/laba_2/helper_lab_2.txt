@@ -63,6 +63,8 @@ WINDOWS
   5) WaitForSingleObject() - ожидание события.
 
 2... Семафоры ...
+  1) Семафоры – инструмент, разработанный исключительно для реализации
+                механизма критических секций в межпроцессном взаимодействии.
   1) CreateSemaphore() - создание семафоры.
        HANDLE CreateSemaphore( PSECURITY_ATTRIBUTE psa, LONG lInitialCount, LONG lMaximumCount, PCTRTR pszName):
          - psa – атрибуты защиты;
