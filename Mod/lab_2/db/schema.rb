@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312132725) do
+ActiveRecord::Schema.define(version: 20150319131121) do
 
   create_table "distributions", force: :cascade do |t|
+    t.integer  "R"
     t.integer  "a"
     t.integer  "b"
     t.integer  "mx"
     t.integer  "sigma"
-    t.integer  "lymbda"
+    t.integer  "lambda"
     t.integer  "eta"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
