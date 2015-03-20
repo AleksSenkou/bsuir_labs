@@ -1,6 +1,5 @@
-- if @distribution.errors.any?
-  .alert.alert-danger
-    | The form contains #{pluralize(@distribution.errors.count, "error")}
-    ul
-    - @distribution.errors.full_messages.each do |msg|
-      li = msg
+.alert.alert-danger
+  | The form contains #{pluralize(@distribution.errors.count, "error")}
+  ul
+  - @distribution.errors.full_messages.each do |msg|
+    li = msg

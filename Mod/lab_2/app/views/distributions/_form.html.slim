@@ -1,8 +1,12 @@
+- form_group_class = 'form-group'
+
 .center
-  = render 'shared/error_messages'
+  - if @distribution.errors.any?
+    = render 'shared/error_messages'
+    - form_group_class = 'form-group error'
+
   .form-inline
     = form_for(@distribution) do |f|
-      - form_group_class = (@distribution.errors.any?) ? 'form-group mar' : 'form-group'
       li
         div class="#{ form_group_class }"
           = f.label :R, class: 'col-sm-1 control-label'
