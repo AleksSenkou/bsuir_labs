@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150319131121) do
 
   create_table "distributions", force: :cascade do |t|
-    t.integer  "R"
+    t.decimal  "R"
     t.integer  "a"
     t.integer  "b"
     t.integer  "mx"
