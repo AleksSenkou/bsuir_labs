@@ -9,11 +9,6 @@
     = form_for(@distribution) do |f|
       li
         div class="#{ form_group_class }"
-          = f.label :R, class: 'col-sm-1 control-label'
-          .col-sm-3
-            = f.number_field :R, class: 'form-control', id: 'distr_R', placeholder: '[0..1]', step: 'any', as: :float
-
-        div class="#{ form_group_class }"
           = f.label :a, class: 'col-sm-1 control-label'
           .col-sm-3
             = f.number_field :a, class: 'form-control', id: 'distr_a'

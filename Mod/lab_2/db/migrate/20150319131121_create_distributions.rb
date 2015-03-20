@@ -1,7 +1,6 @@
 class CreateDistributions < ActiveRecord::Migration
   def change
     create_table :distributions do |t|
-      t.decimal :R
       t.integer :a
       t.integer :b
       t.integer :mx

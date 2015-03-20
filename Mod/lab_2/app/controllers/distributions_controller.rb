@@ -20,7 +20,7 @@ class DistributionsController < ApplicationController
 
   private
     def distribution_params
-      params.require(:distribution).permit(:R, :a, :b, :mx, :lambda,
+      params.require(:distribution).permit(:a, :b, :mx, :lambda,
                                            :eta, :sigma )
     end
 
