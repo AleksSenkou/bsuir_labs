@@ -1,0 +1,37 @@
+ul.nav.nav-tabs.nav-justified
+  li.active role="presentation"
+    a href="#uniform" aria-controls="uniform" Uniform distribution
+  li role="presentation"
+    a href="#gauss" aria-controls="gauss" Gauss
+  li role="presentation"
+    a href="#exponential" aria-controls="exponential" Exponential
+  li role="presentation"
+    a href="#gamma" aria-controls="gamma" Gamma
+  li role="presentation"
+    a href="#triangular" aria-controls="triangular" Triangular
+  li role="presentation"
+    a href="#simpson" aria-controls="simpson" Simpson
+
+.tab-content
+  .tab-pane.active id="uniform"
+    |uniform
+  .tab-pane id="gauss"
+    |gauss
+  .tab-pane id="exponential"
+    |exponential
+  .tab-pane id="gamma"
+    |gamma
+  .tab-pane id="triangular"
+    |triangular
+  .tab-pane id="simpson"
+    |simpson
+
+javascript:
+  $('.nav-tabs > li > a').click( function() {
+    $('.nav-tabs > li.active').removeClass('active');
+    $(this).parent().addClass('active');
+
+    var aria = $(this).attr('aria-controls');
+    $('.tab-content > div.active').removeClass('active');
+    $('.tab-content > div#' + aria).addClass('active');
+  });

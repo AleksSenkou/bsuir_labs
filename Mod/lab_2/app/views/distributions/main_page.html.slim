@@ -1,16 +1,5 @@
 = render 'form'
 - if !@distribution.id.nil? && !@distribution.errors.any?
-  hr
-  ul.nav.nav-tabs.nav-justified
-    li.active role='presentation'
-      = link_to 'Uniform distribution', '#'
-    li role='presentation'
-      = link_to 'Gauss', '#'
-    li role='presentation'
-      = link_to 'Exponential', '#'
-    li role='presentation'
-      = link_to 'Gamma', '#'
-    li role='presentation'
-      = link_to 'Triangular', '#'
-    li role='presentation'
-      = link_to 'Simpson', '#'
+  .gorizontal
+    hr
+    = render 'tabs'
