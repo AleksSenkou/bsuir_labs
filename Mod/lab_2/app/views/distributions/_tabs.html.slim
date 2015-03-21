@@ -1,3 +1,5 @@
+= render 'tabs.js.slim'
+
 ul.nav.nav-tabs.nav-justified
   li.active role="presentation"
     a href="#uniform" aria-controls="uniform" Uniform distribution
@@ -14,9 +16,9 @@ ul.nav.nav-tabs.nav-justified
 
 .tab-content
   .tab-pane.active id="uniform"
-    |uniform
+    div id="chart_div" style="width: 70%; height: 50%;"
   .tab-pane id="gauss"
-    |gauss
+    div id="chart_div" style="width: 70%; height: 50%;"
   .tab-pane id="exponential"
     |exponential
   .tab-pane id="gamma"
@@ -25,13 +27,3 @@ ul.nav.nav-tabs.nav-justified
     |triangular
   .tab-pane id="simpson"
     |simpson
-
-javascript:
-  $('.nav-tabs > li > a').click( function() {
-    $('.nav-tabs > li.active').removeClass('active');
-    $(this).parent().addClass('active');
-
-    var aria = $(this).attr('aria-controls');
-    $('.tab-content > div.active').removeClass('active');
-    $('.tab-content > div#' + aria).addClass('active');
-  });
