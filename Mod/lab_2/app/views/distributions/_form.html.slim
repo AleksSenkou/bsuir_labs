@@ -38,5 +38,14 @@
           .col-sm-3
             = f.number_field :eta, class: 'form-control', id: 'distr_eta'
 
+      li
+        .form-group
+          = f.select(:which, options_for_select([['Uniform', 1],
+                                                 ['Gauss', 2],
+                                                 ['Exponential', 3],
+                                                 ['Gamma', 4],
+                                                 ['Triangular', 5],
+                                                 ['Simpson', 6]]), {}, { class: 'form-control' })
+
       .submit_button.col-sm-2
         = f.submit 'Enter', class: 'btn btn-primary btn-block'

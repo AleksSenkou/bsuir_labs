@@ -1,0 +1,16 @@
+script type="text/javascript" src="https://www.google.com/jsapi"
+javascript:
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(#{ raw @list })
+
+    var options = {
+      title: 'Histogram',
+      legend: { position: 'none' },
+      histogram: { bucketSize: #{ @size } }
+    };
+
+    var chart = new google.visualization.Histogram(document.getElementById("chart_div"));
+    chart.draw(data, options);
+  };
