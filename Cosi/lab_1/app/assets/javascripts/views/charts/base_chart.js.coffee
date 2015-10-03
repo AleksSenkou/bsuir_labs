@@ -1,6 +1,6 @@
 #= require 'views/charts/board'
 
-class Lab2.Views.BaseChart extends Backbone.View.extend
+class App.Views.BaseChart extends Backbone.View.extend
   el: 'base-chart'
 
   constructor: ->
@@ -13,7 +13,7 @@ class Lab2.Views.BaseChart extends Backbone.View.extend
     @
 
   drawBoard: ->
-    @board = new Lab2.Views.Board(
+    @board = new App.Views.Board(
       el: @el
       size: @size
     ).render()

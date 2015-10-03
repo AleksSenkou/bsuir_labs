@@ -1,7 +1,7 @@
-class Lab2.Routers.Charts extends Backbone.Router
+class App.Routers.Charts extends Backbone.Router
   routes:
     '': 'chartsIndex'
 
   chartsIndex: ->
-    model = Lab2.Views.ChartsIndex
+    model = App.Views.ChartsIndex
     new model().render()

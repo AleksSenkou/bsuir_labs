@@ -1,11 +1,11 @@
-window.Lab2 =
+window.App =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
   initialize: ->
-    new Lab2.Routers.Charts()
+    new App.Routers.Charts()
     Backbone.history.start()
 
 $(document).ready ->
-  Lab2.initialize()
+  App.initialize()

@@ -15,8 +15,7 @@
 //= require turbolinks
 //= require underscore
 //= require backbone
-//= require lab2
-//= require_tree ./models
+//= require app
 //= require_tree ./views
 //= require_tree ./jsxgraphs
 //= require_tree .

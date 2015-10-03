@@ -1,4 +1,4 @@
-class Lab2.Views.Board extends Backbone.View.extend
+class App.Views.Board extends Backbone.View.extend
 
   constructor: (options) ->
     @el = options.el
