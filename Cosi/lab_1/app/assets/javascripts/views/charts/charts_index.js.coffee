@@ -1,6 +1,3 @@
-#= require 'views/charts/base_chart'
-#= require 'views/charts/fast_fourier_amplitude_chart'
-
 class App.Views.ChartsIndex extends Backbone.View
   el: '#charts'
 

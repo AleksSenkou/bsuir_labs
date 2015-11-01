@@ -1,5 +1,3 @@
-#= require 'views/charts/board'
-
 class App.Views.FastFourierAmplitudeChart extends Backbone.View.extend
   el: 'fast-fourier-amplitude-chart'
 
@@ -12,8 +10,4 @@ class App.Views.FastFourierAmplitudeChart extends Backbone.View.extend
     @
 
   drawBoard: ->
-    @board = new App.Views.Board(
-      el: @el
-      size: @size
-    ).render()
-
+    @board = new App.Views.Board(el: @el, size: @size).render()
