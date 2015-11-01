@@ -1,6 +1,6 @@
 class App.Views.Board extends Backbone.View.extend
 
-  constructor: ({ @el, @size }) ->
+  constructor: ({ @el, @size }) -> @size ||= [-9, 3, 9, -3]
 
   render: ->
     @board = JXG.JSXGraph.initBoard(@el, { boundingbox: @size })
