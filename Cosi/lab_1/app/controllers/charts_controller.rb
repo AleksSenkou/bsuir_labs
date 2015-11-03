@@ -3,8 +3,9 @@ class ChartsController < ApplicationController
     charts = Charts.new
 
     gon.push(
-      base_chart_points: charts.base_chart_points.as_json,
-      dft_abs_chart_points: charts.dft_abs_chart_points.as_json
+      base_points: charts.base_points.as_json,
+      dft_abs_points: charts.dft_abs_points.as_json,
+      dft_phase_points: charts.dft_phase_points.as_json
     )
   end
 end

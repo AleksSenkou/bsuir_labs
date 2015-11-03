@@ -2,7 +2,6 @@ class Charts
 
   def initialize(n = 64)
     @N = n
-    @e = 2.718281828459045 # sometimes ruby can't do ```float_complex.to_f```
     @range = 0..@N
     @x_axis = []
     @y_axis = []
@@ -11,12 +10,18 @@ class Charts
     find_dft_complex_y_axis
   end
 
-  def base_chart_points
+  def base_points
     @range.map { |i| [ @x_axis[i], @y_axis[i] ] }
   end
 
-  def dft_abs_chart_points
+  # Return the abs of x
+  def dft_abs_points
     @range.map { |i| [ @x_axis[i], @dft_complex_y_axis[i].abs ] }
+  end
+
+  # Return the phase of x (argument of x)
+  def dft_phase_points
+    @range.map { |i| [ @x_axis[i], @dft_complex_y_axis[i].angle ] }
   end
 
   private
@@ -31,7 +36,7 @@ class Charts
     def find_dft_complex_y_axis
       @dft_complex_y_axis = @range.map do |k|
         @range.inject do |sum, n|
-          sum + @y_axis[n] * -1 * @e ** complex_from(k, n)
+          sum + @y_axis[n] * -1 * Math::E ** complex_from(k, n)
         end / @N.to_f
       end
     end
