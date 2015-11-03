@@ -8,6 +8,7 @@ class Charts
 
     find_x_and_y_axis
     find_dft_complex_y_axis
+    find_dft_restore_y_axis
   end
 
   def base_points
@@ -24,6 +25,10 @@ class Charts
     @range.map { |i| [ @x_axis[i], @dft_complex_y_axis[i].angle ] }
   end
 
+  def dft_restore_points
+    @range.map { |i| [ @x_axis[i], @dft_restore_y_axis[i] ] }
+  end
+
   private
 
     def find_x_and_y_axis
@@ -36,8 +41,16 @@ class Charts
     def find_dft_complex_y_axis
       @dft_complex_y_axis = @range.map do |k|
         @range.inject do |sum, n|
-          sum + @y_axis[n] * -1 * Math::E ** complex_from(k, n)
+          sum + @y_axis[n] * Math::E ** (-1 * complex_from(k, n))
         end / @N.to_f
+      end
+    end
+
+    def find_dft_restore_y_axis
+      @dft_restore_y_axis = @range.map do |k|
+        @range.inject do |sum, n|
+          sum + @dft_complex_y_axis[n] * Math::E ** complex_from(k, n)
+        end.real
       end
     end
 
