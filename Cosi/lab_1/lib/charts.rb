@@ -10,6 +10,7 @@ class Charts
     find_dft_complex_y_axis
     find_dft_restore_y_axis
     @fft_complex_y_axis = find_fft_complex_y_axis @y_axis
+    @fft_restore_y_axis = find_fft_restore_y_axis @fft_complex_y_axis
   end
 
   def base_points
@@ -31,7 +32,15 @@ class Charts
   end
 
   def fft_abs_points
-    @range.map { |i| [ @x_axis[i], (@fft_complex_y_axis[i] / @N).abs ] }
+    @range.map { |i| [ @x_axis[i], @dft_complex_y_axis[i].abs ] }
+  end
+
+  def fft_phase_points
+    @range.map { |i| [ @x_axis[i], @fft_complex_y_axis[i].phase ] }
+  end
+
+  def fft_restore_points
+    @range.map { |i| [ @x_axis[i], @dft_restore_y_axis[i] ] }
   end
 
   def find_fft_complex_y_axis(image)
@@ -46,6 +55,27 @@ class Charts
     end
     first_image = find_fft_complex_y_axis(first)
     second_image = find_fft_complex_y_axis(second)
+    result = []
+    (0..length / 2).each do |i|
+      result << first_image[i]
+      result << second_image[i]
+    end
+    result
+  end
+
+  def find_fft_restore_y_axis(real)
+    length = real.count
+    return real if length == 1
+    first, second = [], []
+    w = 1
+    (0..length / 2).each do |i|
+      break if real[i + length / 2].nil?
+      first << real[i] + real[i + length / 2]
+      second << (real[i] - real[i + length / 2]) * w
+      w *= Math::E ** (complex / length)
+    end
+    first_image = find_fft_restore_y_axis(first)
+    second_image = find_fft_restore_y_axis(second)
     result = []
     (0..length / 2).each do |i|
       result << first_image[i]
