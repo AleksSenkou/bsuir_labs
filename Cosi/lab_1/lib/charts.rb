@@ -36,22 +36,20 @@ class Charts
 
   def find_fft_complex_y_axis(image)
     length = image.count
-    return image if length == 1
+    return image if length == 2
     first, second = [], []
     w = Complex(1, 0)
-    wn = Math::E ** (-1 * complex / length)
-    (0..length / 2).map do |i|
-      break if image[i + length / 2].nil?
-      first.push image[i] + image[i + length / 2]
-      second.push (image[i] - image[i + length / 2]) * w
-      w *= wn
+    (0..length / 2).each do |i|
+      first << image[i] + image[i + length / 2]
+      second << (image[i] - image[i + length / 2]) * w
+      w *= Math::E ** (-1 * complex / length)
     end
     first_image = find_fft_complex_y_axis(first)
     second_image = find_fft_complex_y_axis(second)
     result = []
-    (0..length / 2).map do |i|
-      result.push first_image[i]
-      result.push second_image[i]
+    (0..length / 2).each do |i|
+      result << first_image[i]
+      result << second_image[i]
     end
     result
   end
@@ -60,8 +58,8 @@ class Charts
 
     def find_x_and_y_axis
       @range.map do |number|
-        @x_axis.push x = number * 2 * Math::PI / @N
-        @y_axis.push Math.sin(5 * x) + Math.cos(x)
+        @x_axis << x = number * 2 * Math::PI / @N
+        @y_axis << Math.sin(5 * x) + Math.cos(x)
       end
     end
 
