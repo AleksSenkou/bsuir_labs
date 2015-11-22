@@ -24,6 +24,14 @@ class Charts
     find_points_for convolution_fourier
   end
 
+  def correlation_result_points
+    find_points_for correlation
+  end
+
+  def correlation_fourier_points
+    find_points_for correlation_fourier
+  end
+
   private
 
     def find_signals
@@ -33,6 +41,30 @@ class Charts
         @first_signal << Math.sin(2 * i * interval)
         @second_signal << Math.cos(7 * i * interval)
       end
+    end
+
+    def correlation
+      (0...@N).map do |i|
+        (0...@N).inject do |sum, n|
+          if i + n < 0
+            sum + @first_signal[n] * @second_signal[i + n]
+          else
+            sum + @first_signal[n] * @second_signal[i + n - @N]
+          end
+        end / @N * 10 ** 16
+      end
+    end
+
+    def correlation_fourier
+      first_image = make_fft_for @first_signal
+      second_image = make_fft_for @second_signal
+
+      @N.times do |i|
+        first_image[i] = first_image[i].conjugate
+        first_image[i] *= second_image[i]
+      end
+
+      (restore first_image).compact.map { |num| num * 10 ** 13 }
     end
 
     def convolution
