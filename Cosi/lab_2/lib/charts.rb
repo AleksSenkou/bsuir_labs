@@ -16,45 +16,12 @@ class Charts
     find_points_for @second_signal
   end
 
-  def find_fft_complex_y_axis(image)
-    length = image.count
-    return image if length == 2
-    first, second = [], []
-    w = Complex(1, 0)
-    (0..length / 2).each do |i|
-      first << image[i] + image[i + length / 2]
-      second << (image[i] - image[i + length / 2]) * w
-      w *= Math::E ** (-1 * complex / length)
-    end
-    first_image = find_fft_complex_y_axis(first)
-    second_image = find_fft_complex_y_axis(second)
-    result = []
-    (0..length / 2).each do |i|
-      result << first_image[i]
-      result << second_image[i]
-    end
-    result
+  def convolution_result_points
+    find_points_for convolution
   end
 
-  def find_fft_restore_y_axis(real)
-    length = real.count
-    return real if length == 1
-    first, second = [], []
-    w = 1
-    (0..length / 2).each do |i|
-      break if real[i + length / 2].nil?
-      first << real[i] + real[i + length / 2]
-      second << (real[i] - real[i + length / 2]) * w
-      w *= Math::E ** (complex / length)
-    end
-    first_image = find_fft_restore_y_axis(first)
-    second_image = find_fft_restore_y_axis(second)
-    result = []
-    (0..length / 2).each do |i|
-      result << first_image[i]
-      result << second_image[i]
-    end
-    result
+  def convolution_fourier_points
+    find_points_for convolution_fourier
   end
 
   private
@@ -68,32 +35,81 @@ class Charts
       end
     end
 
-    def find_points_for(array)
-      (0...array.count).map do |i|
-        x = i * 2 * Math::PI / array.count
-        y = array[i].real
+    def convolution
+      (0...@N).map do |i|
+        (0...@N).inject do |sum, n|
+          if i - n >= 0
+            sum + @first_signal[n] * @second_signal[i - n]
+          else
+            sum + @first_signal[n] * @second_signal[i - n + @N]
+          end
+        end / @N * 10 ** 16
+      end
+    end
+
+    def convolution_fourier
+      first_image = make_fft_for @first_signal
+      second_image = make_fft_for @second_signal
+
+      @N.times { |i| first_image[i] *= second_image[i] }
+
+      (restore first_image).compact.map { |num| num * 10 ** 13 }
+    end
+
+    def make_fft_for(signal)
+      length = signal.count
+      return signal if length == 1
+      first, second = [], []
+      w = Complex(1, 0)
+
+      (0...length / 2).each do |i|
+        first << signal[i] + signal[i + length / 2]
+        second << (signal[i] - signal[i + length / 2]) * w
+
+        w *= Math::E ** (-2 * Complex(0, 1) * Math::PI / length)
+      end
+
+      first_image = make_fft_for first
+      second_image = make_fft_for second
+
+      result = []
+      (0...length / 2).each do |i|
+        result << first_image[i]
+        result << second_image[i]
+      end
+      result
+    end
+
+    def restore(image)
+      length = image.count
+      return image if length == 1
+      first, second = [], []
+      w = 1
+
+      (0...length / 2).each do |i|
+        first << image[i] + image[i + length / 2]
+        second << (image[i] - image[i + length / 2]) * w
+
+        w *= Math::E ** (2 * Complex(0, 1) * Math::PI / length)
+      end
+
+      first_image = restore first
+      second_image = restore second
+
+      result = []
+      (0..length / 2).each do |i|
+        result << first_image[i]
+        result << second_image[i]
+      end
+      result
+    end
+
+    def find_points_for(signal)
+      (0...signal.count).map do |i|
+        x = i * 2 * Math::PI / signal.count
+        y = signal[i].real
 
         [ x, y ]
       end
-    end
-
-    def find_dft_complex_y_axis
-      @dft_complex_y_axis = @range.map do |k|
-        @range.inject do |sum, n|
-          sum + @y_axis[n] * Math::E ** (-1 * complex * k * n / @N)
-        end / @N.to_f
-      end
-    end
-
-    def find_dft_restore_y_axis
-      @dft_restore_y_axis = @range.map do |k|
-        @range.inject do |sum, n|
-          sum + @dft_complex_y_axis[n] * Math::E ** (complex * k * n / @N)
-        end.real
-      end
-    end
-
-    def complex
-      Complex(0, 1) * 2 * Math::PI
     end
 end
