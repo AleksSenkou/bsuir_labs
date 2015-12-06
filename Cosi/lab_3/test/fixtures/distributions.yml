@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  R: 1
+  a: 1
+  b: 1
+  mx: 1
+  sigma: 1
+  lambda: 1
+  eta: 1
+
+two:
+  R: 1
+  a: 1
+  b: 1
+  mx: 1
+  sigma: 1
+  lambda: 1
+  eta: 1
